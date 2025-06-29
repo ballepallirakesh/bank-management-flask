@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <form method="POST">
+    <label>Account Number:</label><br>
+    <input type="text" name="account_number" required><br>
+    <label>PIN:</label><br>
+    <input type="password" name="pin" required><br><br>
+    <input type="submit" value="Login">
+  </form>
+  <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign up here</a></p>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for msg in messages %}
+          <li style="color: green;">{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+</body>
+</html>

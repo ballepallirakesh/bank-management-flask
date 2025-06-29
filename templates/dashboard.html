@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+
+<h2>Welcome, {{ name }} 👋</h2>
+<!-- 🔔 Flash Messages Block -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul style="list-style: none; padding: 0;">
+      {% for category, message in messages %}
+        <li style="color: {% if category == 'success' %}green{% else %}red{% endif %};">
+          {{ message }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<h3>💰 Current Balance: ₹{{ balance }}</h3>
+
+<!-- Deposit form -->
+<form action="{{ url_for('deposit') }}" method="post">
+  <input type="number" name="amount" min="1" step="0.01" required>
+  <button type="submit">Deposit</button>
+</form>
+
+<!-- Withdraw form -->
+<form action="{{ url_for('withdraw') }}" method="post">
+  <input type="number" name="amount" min="1" step="0.01" required>
+  <button type="submit">Withdraw</button>
+</form>
+
+<!-- View transaction history -->
+<a href="{{ url_for('transaction_history') }}">View Transactions</a><br><br>
+
+<!-- Logout -->
+<form action="{{ url_for('logout') }}" method="post">
+  <button type="submit">🚪 Logout</button>
+</form>
+
+<!-- Show last 5 transactions -->
+<h3>🧾 Recent Transactions</h3>
+{% if transactions %}
+  <ul>
+    {% for tx in transactions %}
+      <li>🔹 {{ tx[0].capitalize() }} ₹{{ tx[1] }} on {{ tx[2] }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>📭 No recent transactions</p>
+{% endif %}
+
+</body>
+</html>

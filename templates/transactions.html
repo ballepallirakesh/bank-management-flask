@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Transaction History</title>
+</head>
+<body>
+  <h2>📜 Transaction History</h2>
+
+  {% if transactions %}
+    <ul>
+      {% for tx in transactions %}
+        <li>{{ tx[0].capitalize() }} ₹{{ tx[1] }} on {{ tx[2] }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>📭 No transactions found.</p>
+  {% endif %}
+
+  <br>
+  <a href="{{ url_for('dashboard') }}">⬅️ Back to Dashboard</a>
+</body>
+</html>
